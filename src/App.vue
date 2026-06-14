@@ -7,7 +7,7 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import Home from './components/Home.vue'
-import Docs from './components/Docs.vue'
+import KnowledgeBase from './components/KnowledgeBase.vue'
 import Toast from 'primevue/toast'
 
 const currentHash = ref(window.location.hash)
@@ -25,8 +25,8 @@ onUnmounted(() => {
 })
 
 const activeView = computed(() => {
-    if (currentHash.value.startsWith('#docs')) {
-        return Docs
+    if (currentHash.value.startsWith('#knowledge-base')) {
+        return KnowledgeBase
     }
     return Home
 })

@@ -10,7 +10,7 @@
                     <input 
                         type="text" 
                         v-model="searchQuery" 
-                        placeholder="Search docs..." 
+                        placeholder="Search knowledge base..." 
                         class="search-input"
                     />
                     <i 
@@ -71,7 +71,7 @@
             </button>
 
             <!-- Main Content Area -->
-            <main class="docs-main" id="docs-content-viewport">
+            <main class="docs-main" id="knowledge-base-content-viewport">
                 <!-- Breadcrumbs -->
                 <div class="breadcrumbs" v-if="activeFile">
                     <span v-for="(crumb, index) in breadcrumbs" :key="index" class="crumb-item">
@@ -113,7 +113,7 @@
                     <!-- Landing Dashboard (Default view when no file selected) -->
                     <div v-else class="docs-landing">
                         <div class="landing-header animate-fade-in">
-                            <div class="landing-badge">Portfolio Docs</div>
+                            <div class="landing-badge">Portfolio Knowledge Base</div>
                             <h1>Knowledge Base & <span class="accent">Showcase</span></h1>
                             <p class="landing-subtitle">Explore my technical documentations, code learnings, and project system designs.</p>
                         </div>
@@ -154,14 +154,14 @@
                             </div>
                         </div>
 
-                        <!-- How to Add Docs Tip -->
+                        <!-- How to Add Knowledge Base Tip -->
                         <div class="docs-tip-card animate-fade-in">
                             <div class="tip-icon">
                                 <i class="pi pi-lightbulb"></i>
                             </div>
                             <div class="tip-content">
                                 <h4>Pro Tip: How to expand this portfolio</h4>
-                                <p>To add more files to this section, just drop a <code>.md</code> file in the <code>public/docs/</code> directory and register it in <code>public/docs/structure.json</code>. The navigation tree and search indices will update automatically!</p>
+                                <p>To add more files to this section, just drop a <code>.md</code> file in the <code>public/knowledge-base/</code> directory and register it in <code>public/knowledge-base/structure.json</code>. The navigation tree and search indices will update automatically!</p>
                             </div>
                         </div>
                     </div>
@@ -178,6 +178,20 @@ import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import Header from './reusable/Header.vue'
 import Footer from './reusable/Footer.vue'
 import { marked } from 'marked'
+import mermaid from 'mermaid'
+
+// Initialize mermaid
+mermaid.initialize({
+    startOnLoad: false,
+    theme: 'dark',
+    securityLevel: 'loose',
+    themeVariables: {
+        background: '#0f1319',
+        primaryColor: '#6366f1',
+        primaryTextColor: '#cbd5e1',
+        lineColor: '#38bdf8',
+    }
+})
 
 const structure = ref([])
 const expandedFolders = ref({})
@@ -190,6 +204,26 @@ const mobileSidebarOpen = ref(false)
 
 // Configure custom marked renderer
 const renderer = new marked.Renderer()
+
+// Custom code block renderer to intercept mermaid diagrams
+renderer.code = function(arg1, arg2) {
+    let text = ''
+    let lang = ''
+    if (typeof arg1 === 'object' && arg1 !== null) {
+        text = arg1.text || ''
+        lang = arg1.lang || ''
+    } else {
+        text = arg1 || ''
+        lang = arg2 || ''
+    }
+
+    if (lang === 'mermaid') {
+        return `<div class="mermaid">${text}</div>`
+    }
+
+    // Default code block rendering
+    return `<pre><code class="language-${lang}">${text}</code></pre>`
+}
 
 // Custom image path resolver & styling
 renderer.image = function(arg1, arg2, arg3) {
@@ -209,7 +243,7 @@ renderer.image = function(arg1, arg2, arg3) {
     if (href && !href.startsWith('http') && !href.startsWith('/')) {
         const lastSlash = activeFile.value.lastIndexOf('/')
         const dir = lastSlash !== -1 ? activeFile.value.substring(0, lastSlash + 1) : ''
-        resolvedHref = `/docs/${dir}${href}`
+        resolvedHref = `/knowledge-base/${dir}${href}`
     }
     
     return `
@@ -260,7 +294,7 @@ marked.setOptions({ renderer })
 // Fetch the tree structure on mount
 const fetchStructure = async () => {
     try {
-        const res = await fetch('/docs/structure.json')
+        const res = await fetch('/knowledge-base/structure.json')
         if (!res.ok) throw new Error('Could not fetch documentation structure')
         structure.value = await res.json()
         
@@ -365,7 +399,7 @@ const handleNodeClick = (item) => {
         expandedFolders.value[item.name] = !expandedFolders.value[item.name]
     } else {
         activeFile.value = item.path
-        window.location.hash = `#docs/${item.path}`
+        window.location.hash = `#knowledge-base/${item.path}`
         mobileSidebarOpen.value = false // close on mobile select
     }
 }
@@ -417,10 +451,10 @@ const breadcrumbs = computed(() => {
     
     const matched = findPath(structure.value, activeFile.value)
     if (matched) {
-        return ['Docs', ...matched]
+        return ['Knowledge Base', ...matched]
     }
     
-    return ['Docs', activeFile.value]
+    return ['Knowledge Base', activeFile.value]
 })
 
 const handleCrumbClick = (index) => {
@@ -428,7 +462,7 @@ const handleCrumbClick = (index) => {
         window.location.hash = '#'
     } else if (index === 1) {
         activeFile.value = ''
-        window.location.hash = '#docs'
+        window.location.hash = '#knowledge-base'
     }
 }
 
@@ -443,8 +477,8 @@ const focusSidebarSearch = () => {
 // Synchronization with URL Hash
 const parseHash = () => {
     const hash = window.location.hash
-    if (hash.startsWith('#docs/')) {
-        activeFile.value = hash.substring(6)
+    if (hash.startsWith('#knowledge-base/')) {
+        activeFile.value = hash.substring(16)
     } else {
         activeFile.value = ''
     }
@@ -467,24 +501,38 @@ watch(activeFile, async (newFile) => {
     loading.value = true
     error.value = null
     try {
-        const res = await fetch(`/docs/${newFile}`)
-        if (!res.ok) throw new Error(`Could not load /docs/${newFile} (${res.status} ${res.statusText})`)
+        const res = await fetch(`/knowledge-base/${newFile}`)
+        if (!res.ok) throw new Error(`Could not load /knowledge-base/${newFile} (${res.status} ${res.statusText})`)
         const mdText = await res.text()
         
         // Parse markdown to HTML
         docContent.value = await marked(mdText)
-        
-        // Set copy buttons
-        nextTick(() => {
-            const viewport = document.getElementById('docs-content-viewport')
-            if (viewport) viewport.scrollTop = 0
-            setupCopyButtons()
-        })
     } catch (err) {
         console.error(err)
         error.value = err.message || 'Error loading document.'
     } finally {
         loading.value = false
+    }
+
+    if (!error.value) {
+        // Set copy buttons & render diagrams after loading is cleared and DOM is updated
+        nextTick(async () => {
+            const viewport = document.getElementById('knowledge-base-content-viewport')
+            if (viewport) viewport.scrollTop = 0
+            setupCopyButtons()
+            
+            // Render mermaid diagrams
+            try {
+                const mermaidNodes = document.querySelectorAll('.markdown-body .mermaid')
+                if (mermaidNodes.length > 0) {
+                    await mermaid.run({
+                        nodes: mermaidNodes
+                    })
+                }
+            } catch (err) {
+                console.error('Failed to render mermaid diagrams:', err)
+            }
+        })
     }
 }, { immediate: true })
 
@@ -569,7 +617,6 @@ onUnmounted(() => {
     background: var(--primary);
     border-radius: 4px;
     margin-right: 0.75rem;
-    box-shadow: 0 0 8px var(--primary-glow);
 }
 
 .markdown-body h3 {
@@ -608,7 +655,7 @@ onUnmounted(() => {
 
 /* Code block styles */
 .markdown-body pre {
-    background: #0f1319;
+    background: #FAF8F5;
     border: 1px solid var(--glass-border);
     border-radius: 16px;
     padding: 1.25rem;
@@ -617,21 +664,22 @@ onUnmounted(() => {
     margin-top: 1.25rem;
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.95rem;
+    box-shadow: inset 0 1px 3px rgba(44, 42, 39, 0.02);
 }
 
 .markdown-body code {
-    background: rgba(99, 102, 241, 0.1);
+    background: var(--primary-glow);
     color: var(--primary);
     padding: 0.2rem 0.4rem;
     border-radius: 6px;
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.9rem;
-    border: 1px solid rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(62, 92, 77, 0.2);
 }
 
 .markdown-body pre code {
     background: none;
-    color: #cbd5e1;
+    color: var(--text-main);
     padding: 0;
     border-radius: 0;
     border: none;
@@ -644,7 +692,7 @@ onUnmounted(() => {
     position: absolute;
     top: 8px;
     right: 8px;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(44, 42, 39, 0.04);
     border: 1px solid var(--glass-border);
     border-radius: 8px;
     width: 32px;
@@ -659,7 +707,7 @@ onUnmounted(() => {
 }
 
 .markdown-body .copy-btn:hover {
-    background: rgba(99, 102, 241, 0.2);
+    background: var(--primary-glow);
     border-color: var(--primary);
     color: var(--text-main);
     transform: scale(1.05);
@@ -667,7 +715,7 @@ onUnmounted(() => {
 
 .markdown-body .copy-btn.copied {
     border-color: var(--secondary);
-    background: rgba(6, 182, 212, 0.1);
+    background: rgba(184, 93, 67, 0.1);
 }
 
 /* Markdown Image Resolving */
@@ -684,7 +732,7 @@ onUnmounted(() => {
     max-height: 500px;
     border-radius: 16px;
     border: 1px solid var(--glass-border);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(44, 42, 39, 0.06);
     transition: transform 0.3s ease;
 }
 
@@ -709,7 +757,7 @@ onUnmounted(() => {
 }
 
 .markdown-body th {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(44, 42, 39, 0.02);
     color: var(--text-main);
     font-weight: 600;
     text-align: left;
@@ -725,14 +773,14 @@ onUnmounted(() => {
 
 .markdown-body tr:hover td {
     color: var(--text-main);
-    background: rgba(255, 255, 255, 0.01);
+    background: rgba(44, 42, 39, 0.01);
 }
 
 /* Alerts / Blockquotes */
 .md-blockquote {
     border-left: 4px solid var(--primary);
     padding: 0.5rem 1.5rem;
-    background: rgba(99, 102, 241, 0.03);
+    background: var(--primary-glow);
     margin: 1.5rem 0;
     border-radius: 0 12px 12px 0;
     font-style: italic;
@@ -740,11 +788,11 @@ onUnmounted(() => {
 }
 
 .md-alert {
-    border-left: 4px solid #fff;
+    border-left: 4px solid var(--glass-border);
     padding: 1rem 1.25rem;
     margin: 1.5rem 0;
     border-radius: 0 16px 16px 0;
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(44, 42, 39, 0.01);
 }
 
 .md-alert-header {
@@ -777,7 +825,7 @@ onUnmounted(() => {
 /* Alert Color Customization */
 .md-alert.alert-note {
     border-color: var(--primary);
-    background: rgba(99, 102, 241, 0.03);
+    background: rgba(62, 92, 77, 0.05);
 }
 .md-alert.alert-note .md-alert-icon,
 .md-alert.alert-note .md-alert-title {
@@ -786,7 +834,7 @@ onUnmounted(() => {
 
 .md-alert.alert-tip {
     border-color: var(--secondary);
-    background: rgba(6, 182, 212, 0.03);
+    background: rgba(184, 93, 67, 0.04);
 }
 .md-alert.alert-tip .md-alert-icon,
 .md-alert.alert-tip .md-alert-title {
@@ -794,30 +842,47 @@ onUnmounted(() => {
 }
 
 .md-alert.alert-important {
-    border-color: #8b5cf6; /* purple */
-    background: rgba(139, 92, 246, 0.03);
+    border-color: var(--primary);
+    background: rgba(62, 92, 77, 0.05);
 }
 .md-alert.alert-important .md-alert-icon,
 .md-alert.alert-important .md-alert-title {
-    color: #a78bfa;
+    color: var(--primary);
 }
 
 .md-alert.alert-warning {
-    border-color: #f59e0b; /* amber */
-    background: rgba(245, 158, 11, 0.03);
+    border-color: var(--accent);
+    background: rgba(205, 160, 82, 0.04);
 }
 .md-alert.alert-warning .md-alert-icon,
 .md-alert.alert-warning .md-alert-title {
-    color: #fbbf24;
+    color: var(--accent);
 }
 
 .md-alert.alert-caution {
-    border-color: var(--accent);
-    background: rgba(244, 63, 148, 0.03);
+    border-color: var(--secondary);
+    background: rgba(184, 93, 67, 0.04);
 }
 .md-alert.alert-caution .md-alert-icon,
 .md-alert.alert-caution .md-alert-title {
-    color: var(--accent);
+    color: var(--secondary);
+}
+
+/* Mermaid Diagrams style */
+.markdown-body .mermaid {
+    background: #FAF8F5;
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    margin-top: 1.25rem;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+}
+.markdown-body .mermaid svg {
+    max-width: 100%;
+    height: auto;
 }
 </style>
 
@@ -840,7 +905,7 @@ onUnmounted(() => {
 /* Sidebar Styles */
 .docs-sidebar {
     width: 300px;
-    background: rgba(10, 12, 18, 0.5);
+    background: rgba(244, 241, 234, 0.75);
     border-right: 1px solid var(--glass-border);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -863,7 +928,7 @@ onUnmounted(() => {
 
 .search-input {
     width: 100%;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(44, 42, 39, 0.03);
     border: 1px solid var(--glass-border);
     border-radius: 12px;
     padding: 0.6rem 2.2rem 0.6rem 2.2rem;
@@ -876,8 +941,8 @@ onUnmounted(() => {
 .search-input:focus {
     outline: none;
     border-color: var(--primary);
-    background: rgba(99, 102, 241, 0.05);
-    box-shadow: 0 0 10px rgba(99, 102, 241, 0.15);
+    background: rgba(62, 92, 77, 0.04);
+    box-shadow: 0 0 10px var(--primary-glow);
 }
 
 .search-icon {
@@ -912,10 +977,10 @@ onUnmounted(() => {
     width: 6px;
 }
 .sidebar-tree::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(44, 42, 39, 0.06);
 }
 .sidebar-tree::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(44, 42, 39, 0.15);
 }
 
 /* Tree Nodes */
@@ -934,12 +999,12 @@ onUnmounted(() => {
 }
 
 .tree-node:hover {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(44, 42, 39, 0.03);
     color: var(--text-main);
 }
 
 .node-active {
-    background: rgba(99, 102, 241, 0.1) !important;
+    background: var(--primary-glow) !important;
     color: var(--primary) !important;
     font-weight: 600;
 }
@@ -987,7 +1052,7 @@ onUnmounted(() => {
     height: calc(100vh - 70px);
     display: flex;
     flex-direction: column;
-    background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.03) 0%, transparent 70%);
+    background: radial-gradient(circle at 50% 0%, rgba(62, 92, 77, 0.04) 0%, transparent 70%);
 }
 
 .breadcrumbs {
@@ -1145,9 +1210,9 @@ onUnmounted(() => {
 .landing-badge {
     display: inline-block;
     padding: 0.4rem 1rem;
-    background: rgba(99, 102, 241, 0.1);
+    background: var(--primary-glow);
     color: var(--primary);
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    border: 1px solid var(--glass-border);
     border-radius: 50px;
     font-size: 0.85rem;
     font-weight: 700;
@@ -1176,7 +1241,6 @@ onUnmounted(() => {
     width: 100%;
     height: 3px;
     background: var(--primary);
-    box-shadow: 0 0 10px var(--primary-glow);
 }
 
 .landing-subtitle {
@@ -1214,8 +1278,8 @@ onUnmounted(() => {
 .search-input-large:focus {
     outline: none;
     border-color: var(--primary);
-    background: rgba(99, 102, 241, 0.05);
-    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.15);
+    background: rgba(62, 92, 77, 0.04);
+    box-shadow: 0 8px 30px var(--primary-glow);
 }
 
 .search-icon-large {
@@ -1251,7 +1315,7 @@ onUnmounted(() => {
 .category-card:hover {
     transform: translateY(-5px);
     border-color: var(--primary);
-    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.1);
+    box-shadow: 0 10px 25px var(--primary-glow);
 }
 
 .category-card::before {
@@ -1274,7 +1338,7 @@ onUnmounted(() => {
     width: 50px;
     height: 50px;
     border-radius: 12px;
-    background: rgba(99, 102, 241, 0.1);
+    background: var(--primary-glow);
     color: var(--primary);
     display: flex;
     justify-content: center;
@@ -1319,7 +1383,7 @@ onUnmounted(() => {
 
 /* Tip Card Styling */
 .docs-tip-card {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(44, 42, 39, 0.02);
     border: 1px solid var(--glass-border);
     border-radius: 20px;
     padding: 1.5rem 2rem;
@@ -1331,7 +1395,7 @@ onUnmounted(() => {
 .tip-icon {
     font-size: 1.5rem;
     color: var(--secondary);
-    background: rgba(6, 182, 212, 0.1);
+    background: var(--primary-glow);
     width: 45px;
     height: 45px;
     border-radius: 50%;
@@ -1355,7 +1419,7 @@ onUnmounted(() => {
 }
 
 .tip-content code {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(44, 42, 39, 0.03);
     color: var(--text-main);
     padding: 0.15rem 0.35rem;
     border-radius: 6px;

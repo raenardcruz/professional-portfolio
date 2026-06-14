@@ -11,7 +11,7 @@
                 <a href="#" class="nav-link" :class="{ 'active': currentHash === '' || currentHash === '#' }">Home</a>
                 <a href="#skills" class="nav-link" :class="{ 'active': currentHash === '#skills' }">Skills</a>
                 <a href="#projects" class="nav-link" :class="{ 'active': currentHash === '#projects' }">Projects</a>
-                <a href="#docs" class="nav-link" :class="{ 'active': currentHash.startsWith('#docs') }">Docs</a>
+                <a href="#knowledge-base" class="nav-link" :class="{ 'active': currentHash.startsWith('#knowledge-base') }">Knowledge Base</a>
                 <a href="#contact" class="nav-link contact-btn">Contact Me</a>
             </nav>
 
@@ -27,7 +27,7 @@
                     <a href="#" class="mobile-nav-link" :class="{ 'active': currentHash === '' || currentHash === '#' }" @click="closeMobileMenu">Home</a>
                     <a href="#skills" class="mobile-nav-link" :class="{ 'active': currentHash === '#skills' }" @click="closeMobileMenu">Skills</a>
                     <a href="#projects" class="mobile-nav-link" :class="{ 'active': currentHash === '#projects' }" @click="closeMobileMenu">Projects</a>
-                    <a href="#docs" class="mobile-nav-link" :class="{ 'active': currentHash.startsWith('#docs') }" @click="closeMobileMenu">Docs</a>
+                    <a href="#knowledge-base" class="mobile-nav-link" :class="{ 'active': currentHash.startsWith('#knowledge-base') }" @click="closeMobileMenu">Knowledge Base</a>
                     <a href="#contact" class="mobile-nav-link contact-btn" @click="closeMobileMenu">Contact Me</a>
                 </nav>
             </div>
@@ -176,7 +176,7 @@ onUnmounted(() => {
     .nav-link.contact-btn:hover {
         transform: translateY(-2px);
         box-shadow: 0 6px 20px var(--primary-glow);
-        background: #4f46e5;
+        background: var(--secondary);
     }
 
     .mobile-menu-btn {
@@ -199,7 +199,7 @@ onUnmounted(() => {
         left: 0;
         width: 100vw;
         height: 100vh;
-        background: rgba(10, 12, 18, 0.95);
+        background: rgba(244, 241, 234, 0.98);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         display: flex;

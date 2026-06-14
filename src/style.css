@@ -5,27 +5,30 @@
   line-height: 1.6;
   font-weight: 400;
 
-  color-scheme: dark;
-  color: #f8fafc;
-  background-color: #0a0c12;
+  color-scheme: light;
+  color: #2c2a27;
+  background-color: #f4f1ea;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* Modern Color Palette */
-  --bg: #0a0c12;
-  --surface: #111827;
-  --primary: #6366f1; /* Electric Indigo */
-  --primary-glow: rgba(99, 102, 241, 0.5);
-  --secondary: #06b6d4; /* Cyan */
-  --accent: #f43f5e; /* Rose */
-  --text-main: #f8fafc;
-  --text-muted: #94abcb;
-  --glass-bg: rgba(17, 24, 39, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  /* Premium Earthy Color Palette */
+  --bg: #f4f1ea;              /* Warm sand/parchment paper background */
+  --surface: #faf8f5;         /* Warm cream clean sheet of paper */
+  --primary: #3e5c4d;         /* Deep sage/forest green */
+  --primary-glow: rgba(62, 92, 77, 0.15);
+  --secondary: #b85d43;       /* Rich terracotta/clay */
+  --accent: #cda052;          /* Warm ochre/gold */
+  --text-main: #2c2a27;       /* Charcoal ink */
+  --text-muted: #6a655f;      /* Soft earth gray */
+  --glass-bg: rgba(250, 248, 245, 0.85);
+  --glass-border: rgba(44, 42, 39, 0.08);
+  --card-shadow: 
+    0 2px 4px rgba(44, 42, 39, 0.02),
+    0 10px 20px rgba(44, 42, 39, 0.04),
+    0 0 0 1px rgba(44, 42, 39, 0.015); /* Soft deckled sheet effect */
 }
 
 * {
@@ -40,7 +43,11 @@ body {
   position: relative;
   width: 100vw;
   min-height: 100vh;
-  background: var(--bg);
+  background-color: var(--bg);
+  /* Subtle tactile paper grid pattern */
+  background-image: 
+    radial-gradient(rgba(44, 42, 39, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
   overflow-x: hidden;
   color: var(--text-main);
 }
@@ -62,12 +69,13 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #dcd7cd;
   border-radius: 5px;
+  border: 2px solid var(--bg);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #c8c2b7;
 }
 
 /* Selection */
@@ -81,7 +89,7 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Mesh Background Utility */
+/* Mesh Background Utility - Earthy Glows */
 .mesh-bg {
   position: fixed;
   top: 0;
@@ -89,7 +97,7 @@ html {
   width: 100%;
   height: 100%;
   z-index: -1;
-  background: radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-              radial-gradient(circle at 100% 0%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 50% 100%, rgba(244, 63, 94, 0.05) 0%, transparent 50%);
+  background: radial-gradient(circle at 0% 0%, rgba(62, 92, 77, 0.08) 0%, transparent 50%),
+              radial-gradient(circle at 100% 0%, rgba(184, 93, 67, 0.06) 0%, transparent 50%),
+              radial-gradient(circle at 50% 100%, rgba(205, 160, 82, 0.05) 0%, transparent 50%);
 }

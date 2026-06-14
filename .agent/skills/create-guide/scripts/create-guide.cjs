@@ -67,19 +67,18 @@ Options:
     const relativeDocPath = `${categoryFolder}/${filename}`;
 
     const projectRoot = process.cwd();
-    const docsRoot = path.join(projectRoot, 'public/docs');
+    const docsRoot = path.join(projectRoot, 'public/knowledge-base');
     const destFolder = path.join(docsRoot, categoryFolder);
     const destFile = path.join(destFolder, filename);
     const structureFile = path.join(docsRoot, 'structure.json');
 
     console.log(`\nCreating guide: "${title}"`);
     console.log(`Category:       "${category}" (folder: ${categoryFolder})`);
-    console.log(`Path:           public/docs/${relativeDocPath}`);
+    console.log(`Path:           public/knowledge-base/${relativeDocPath}`);
 
-    // 1. Create destination directory if it doesn't exist
     if (!fs.existsSync(destFolder)) {
         fs.mkdirSync(destFolder, { recursive: true });
-        console.log(`Created directory: public/docs/${categoryFolder}`);
+        console.log(`Created directory: public/knowledge-base/${categoryFolder}`);
     }
 
     // 2. Draft content
@@ -95,7 +94,7 @@ Options:
 
     // 3. Write markdown file
     fs.writeFileSync(destFile, content, 'utf8');
-    console.log(`Successfully wrote markdown file: public/docs/${relativeDocPath}`);
+    console.log(`Successfully wrote markdown file: public/knowledge-base/${relativeDocPath}`);
 
     // 4. Update structure.json
     let structure = [];
@@ -145,7 +144,7 @@ Options:
 
     // Save structure.json
     fs.writeFileSync(structureFile, JSON.stringify(structure, null, 2), 'utf8');
-    console.log('Successfully updated public/docs/structure.json\n');
+    console.log('Successfully updated public/knowledge-base/structure.json\n');
 }
 
 main();

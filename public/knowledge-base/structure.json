@@ -1,0 +1,180 @@
+[
+  {
+    "name": "Learning Materials",
+    "type": "folder",
+    "children": [
+      {
+        "name": "Go",
+        "type": "folder",
+        "children": [
+          {
+            "name": "Go Installation & Setup",
+            "type": "file",
+            "path": "learning-materials/go/installation-and-setup.md"
+          },
+          {
+            "name": "Go Basics & Syntax",
+            "type": "file",
+            "path": "learning-materials/go/basics-and-syntax.md"
+          },
+          {
+            "name": "Go Concurrency & Best Practices",
+            "type": "file",
+            "path": "learning-materials/go/concurrency-and-best-practices.md"
+          },
+          {
+            "name": "Go Project Layout & Design Patterns",
+            "type": "file",
+            "path": "learning-materials/go/project-layout-and-design-patterns.md"
+          },
+          {
+            "name": "Go REST API with OAuth 2.0",
+            "type": "file",
+            "path": "learning-materials/go/rest-api-with-oauth2.md"
+          }
+        ]
+      },
+      {
+        "name": "Vue",
+        "type": "folder",
+        "children": [
+          {
+            "name": "Vue Setup & Installation",
+            "type": "file",
+            "path": "learning-materials/front-end/vue/setup-and-installation.md"
+          },
+          {
+            "name": "Vue Basic Syntax & Usage",
+            "type": "file",
+            "path": "learning-materials/front-end/vue/basic-syntax-and-usage.md"
+          },
+          {
+            "name": "Best Practice Scalable Folder Structure for Vue.js",
+            "type": "file",
+            "path": "vue/best-practice-scalable-folder-structure.md"
+          }
+        ]
+      },
+      {
+        "name": "React",
+        "type": "folder",
+        "children": [
+          {
+            "name": "React Setup & Installation",
+            "type": "file",
+            "path": "learning-materials/front-end/react/setup-and-installation.md"
+          },
+          {
+            "name": "React Basic Syntax & Usage",
+            "type": "file",
+            "path": "learning-materials/front-end/react/basic-syntax-and-usage.md"
+          },
+          {
+            "name": "Best Practice Scalable Folder Structure for React",
+            "type": "file",
+            "path": "react/best-practice-scalable-folder-structure.md"
+          }
+        ]
+      },
+      {
+        "name": "C#",
+        "type": "folder",
+        "children": [
+          {
+            "name": "C# Core Concepts",
+            "type": "file",
+            "path": "learning-materials/c-sharp/concepts.md"
+          },
+          {
+            "name": "C# Design Patterns",
+            "type": "file",
+            "path": "learning-materials/c-sharp/design-patterns.md"
+          }
+        ]
+      },
+      {
+        "name": "RabbitMQ",
+        "type": "folder",
+        "children": [
+          {
+            "name": "RabbitMQ Setup using Docker",
+            "type": "file",
+            "path": "learning-materials/devops/rabbitmq-docker.md"
+          },
+          {
+            "name": "RabbitMQ Go Integration",
+            "type": "file",
+            "path": "learning-materials/devops/rabbitmq-go.md"
+          },
+          {
+            "name": "RabbitMQ Terminologies & Concepts",
+            "type": "file",
+            "path": "learning-materials/devops/rabbitmq-concepts.md"
+          }
+        ]
+      },
+      {
+        "name": "Jenkins",
+        "type": "folder",
+        "children": [
+          {
+            "name": "Jenkins Setup using Docker",
+            "type": "file",
+            "path": "learning-materials/devops/jenkins-docker.md"
+          },
+          {
+            "name": "Jenkins Core Concepts & Terminologies",
+            "type": "file",
+            "path": "learning-materials/devops/jenkins-concepts.md"
+          }
+        ]
+      },
+      {
+        "name": "System Design",
+        "type": "folder",
+        "children": [
+          {
+            "name": "Load Balancers",
+            "type": "file",
+            "path": "learning-materials/system-design/load-balancers.md"
+          },
+          {
+            "name": "Caching",
+            "type": "file",
+            "path": "learning-materials/system-design/caching.md"
+          },
+          {
+            "name": "Content Delivery Network (CDN)",
+            "type": "file",
+            "path": "learning-materials/system-design/cdn.md"
+          },
+          {
+            "name": "Monolithic Architecture",
+            "type": "file",
+            "path": "learning-materials/system-design/monolith.md"
+          },
+          {
+            "name": "Tiered Architecture",
+            "type": "file",
+            "path": "learning-materials/system-design/tiered-architecture.md"
+          },
+          {
+            "name": "Microservices Architecture",
+            "type": "file",
+            "path": "learning-materials/system-design/microservices.md"
+          },
+          {
+            "name": "Client-Server Model",
+            "type": "file",
+            "path": "learning-materials/system-design/client-server.md"
+          },
+          {
+            "name": "Message Queues",
+            "type": "file",
+            "path": "learning-materials/system-design/message-queues.md"
+          }
+        ]
+      }
+    ]
+  }
+]

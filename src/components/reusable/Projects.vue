@@ -121,8 +121,8 @@ const truncate = (text, length) => {
 
 .project-card:hover {
     transform: translateY(-10px);
-    border-color: rgba(99, 102, 241, 0.3);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(99, 102, 241, 0.1);
+    border-color: var(--primary);
+    box-shadow: 0 15px 30px rgba(44, 42, 39, 0.05), 0 0 15px var(--primary-glow);
 }
 
 .card-image {
@@ -149,7 +149,7 @@ const truncate = (text, length) => {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(10, 12, 18, 0.8);
+    background: rgba(44, 42, 39, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -198,7 +198,7 @@ const truncate = (text, length) => {
     font-size: 0.7rem;
     font-weight: 600;
     padding: 0.25rem 0.75rem;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(44, 42, 39, 0.03);
     color: var(--text-muted);
     border-radius: 50px;
     border: 1px solid var(--glass-border);

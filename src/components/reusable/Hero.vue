@@ -100,12 +100,12 @@ const scroll = (id) => {
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    background: rgba(99, 102, 241, 0.1);
+    background: var(--primary-glow);
     color: var(--primary);
     border-radius: 50px;
     font-size: 0.85rem;
     font-weight: 600;
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    border: 1px solid var(--glass-border);
     width: fit-content;
 }
 
@@ -167,7 +167,7 @@ const scroll = (id) => {
 .btn-primary:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 35px var(--primary-glow);
-    background: #4f46e5;
+    background: var(--secondary);
 }
 
 .btn-outline {
@@ -177,7 +177,7 @@ const scroll = (id) => {
 }
 
 .btn-outline:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(44, 42, 39, 0.05);
     border-color: var(--text-main);
     transform: translateY(-5px);
 }
@@ -194,7 +194,7 @@ const scroll = (id) => {
     position: relative;
     width: clamp(280px, 40vw, 520px);
     aspect-ratio: 1;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+    background: linear-gradient(135deg, rgba(62, 92, 77, 0.1) 0%, rgba(184, 93, 67, 0.1) 100%);
     border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
     animation: morph 8s ease-in-out infinite;
     display: flex;
@@ -206,7 +206,7 @@ const scroll = (id) => {
 
 .image-frame:hover {
     border-color: var(--primary);
-    box-shadow: 0 0 50px var(--primary-glow);
+    box-shadow: 0 10px 30px var(--primary-glow);
 }
 
 .inner-glow {
@@ -223,7 +223,7 @@ const scroll = (id) => {
     height: 90%;
     object-fit: contain;
     z-index: 2;
-    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
+    filter: drop-shadow(0 20px 30px rgba(44, 42, 39, 0.15));
 }
 
 .stats-card {

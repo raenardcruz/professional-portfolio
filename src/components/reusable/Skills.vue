@@ -62,7 +62,7 @@ const getIcon = (title) => {
     transform: translate(-50%, -50%);
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+    background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
     z-index: 0;
     pointer-events: none;
 }
@@ -128,8 +128,8 @@ const getIcon = (title) => {
 
 .skill-card:hover {
     transform: translateY(-5px) scale(1.02);
-    border-color: rgba(99, 102, 241, 0.4);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(99, 102, 241, 0.1);
+    border-color: var(--primary);
+    box-shadow: 0 15px 30px rgba(44, 42, 39, 0.05), 0 0 15px var(--primary-glow);
 }
 
 .card-header {
@@ -141,7 +141,7 @@ const getIcon = (title) => {
 .icon-box {
     width: 48px;
     height: 48px;
-    background: rgba(99, 102, 241, 0.1);
+    background: var(--primary-glow);
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -175,7 +175,7 @@ const getIcon = (title) => {
     font-size: 0.85rem;
     font-weight: 600;
     padding: 0.5rem 1rem;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(44, 42, 39, 0.02);
     color: var(--text-muted);
     border-radius: 12px;
     border: 1px solid var(--glass-border);
@@ -184,7 +184,7 @@ const getIcon = (title) => {
 }
 
 .skill-tag:hover {
-    background: rgba(99, 102, 241, 0.1);
+    background: var(--primary-glow);
     color: var(--primary);
     border-color: var(--primary);
     transform: translateY(-2px);
