@@ -130,6 +130,73 @@
         ]
       },
       {
+        "name": "Kafka",
+        "type": "folder",
+        "children": [
+          {
+            "name": "Kafka Core Concepts & Terminologies",
+            "type": "file",
+            "path": "learning-materials/devops/kafka-concepts.md"
+          },
+          {
+            "name": "Kafka Pattern: Publish-Subscribe",
+            "type": "file",
+            "path": "learning-materials/devops/kafka-pattern-pub-sub.md"
+          },
+          {
+            "name": "Kafka Pattern: Message Queueing",
+            "type": "file",
+            "path": "learning-materials/devops/kafka-pattern-queue.md"
+          },
+          {
+            "name": "Kafka Pattern: Request-Reply",
+            "type": "file",
+            "path": "learning-materials/devops/kafka-pattern-request-reply.md"
+          },
+          {
+            "name": "Kafka Pattern: Retry & Dead Letter Queue (DLQ)",
+            "type": "file",
+            "path": "learning-materials/devops/kafka-pattern-retry-dlq.md"
+          },
+          {
+            "name": "Kafka Pattern: Event Sourcing & CQRS",
+            "type": "file",
+            "path": "learning-materials/devops/kafka-pattern-event-sourcing.md"
+          },
+          {
+            "name": "Kafka Pattern: Transactional Outbox",
+            "type": "file",
+            "path": "learning-materials/devops/kafka-pattern-transactional-outbox.md"
+          }
+        ]
+      },
+      {
+        "name": "Nginx",
+        "type": "folder",
+        "children": [
+          {
+            "name": "Nginx Core Concepts & Configuration",
+            "type": "file",
+            "path": "learning-materials/devops/nginx-overview.md"
+          },
+          {
+            "name": "Nginx Reverse Proxy & Load Balancing",
+            "type": "file",
+            "path": "learning-materials/devops/nginx-reverse-proxy.md"
+          },
+          {
+            "name": "Nginx Static Content & Caching",
+            "type": "file",
+            "path": "learning-materials/devops/nginx-static-caching.md"
+          },
+          {
+            "name": "Nginx Security & Rate Limiting",
+            "type": "file",
+            "path": "learning-materials/devops/nginx-security-hardening.md"
+          }
+        ]
+      },
+      {
         "name": "System Design",
         "type": "folder",
         "children": [
