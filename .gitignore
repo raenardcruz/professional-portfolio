@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local video assets (hosted on Cloudflare R2)
+Video Assets/
+

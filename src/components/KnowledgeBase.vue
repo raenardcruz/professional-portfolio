@@ -655,16 +655,16 @@ onUnmounted(() => {
 
 /* Code block styles */
 .markdown-body pre {
-    background: #FAF8F5;
+    background: var(--surface);
     border: 1px solid var(--glass-border);
     border-radius: 16px;
     padding: 1.25rem;
     overflow-x: auto;
     margin-bottom: 1.5rem;
     margin-top: 1.25rem;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.95rem;
-    box-shadow: inset 0 1px 3px rgba(44, 42, 39, 0.02);
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .markdown-body code {
@@ -870,7 +870,7 @@ onUnmounted(() => {
 
 /* Mermaid Diagrams style */
 .markdown-body .mermaid {
-    background: #FAF8F5;
+    background: var(--surface);
     border: 1px solid var(--glass-border);
     border-radius: 16px;
     padding: 1.5rem;
@@ -898,22 +898,22 @@ onUnmounted(() => {
 .docs-layout {
     flex: 1;
     display: flex;
-    margin-top: 70px; /* Header spacing */
+    margin-top: 76px; /* Header spacing */
     position: relative;
 }
 
 /* Sidebar Styles */
 .docs-sidebar {
     width: 300px;
-    background: rgba(244, 241, 234, 0.75);
+    background: var(--glass-bg);
     border-right: 1px solid var(--glass-border);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     display: flex;
     flex-direction: column;
     position: sticky;
-    top: 70px;
-    height: calc(100vh - 70px);
+    top: 76px;
+    height: calc(100vh - 76px);
     z-index: 100;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
