@@ -1,6 +1,6 @@
 <template>
     <div class="docs-container">
-        <Header />
+        <Navbar />
 
         <div class="docs-layout">
             <!-- Sidebar Navigation -->
@@ -167,7 +167,7 @@
                     </div>
                 </div>
 
-                <Footer />
+                <FooterContact />
             </main>
         </div>
     </div>
@@ -175,8 +175,8 @@
 
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
-import Header from './reusable/Header.vue'
-import Footer from './reusable/Footer.vue'
+import Navbar from './reusable/Navbar.vue'
+import FooterContact from './reusable/FooterContact.vue'
 import { marked } from 'marked'
 import mermaid from 'mermaid'
 
