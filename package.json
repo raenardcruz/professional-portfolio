@@ -23,6 +23,9 @@
     "@types/three": "^0.185.1",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/tsconfig": "^0.8.1",
+    "autoprefixer": "^10.6.2",
+    "postcss": "^8.5.33",
+    "tailwindcss": "^3.4.19",
     "typescript": "~5.9.3",
     "vite": "^7.2.4",
     "vue-tsc": "^3.1.4"
